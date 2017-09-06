@@ -3,11 +3,10 @@ const app = express();
 
 
 
-app.get('/', function (req, res) {
-    res.send('Hello World!')
-});
+app.use(express.static('client'));
 
-app.post('/', function (req, res) {
+
+app.post('/message', function (req, res) {
     res.send('Got a POST request')
 });
 

@@ -1,0 +1,19 @@
+{
+  "name": "babble",
+  "version": "1.0.0",
+  "description": "University Project",
+  "main": "server/main.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/main.js"
+  },
+  "keywords": [],
+  "author": "David Antoon",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.4"
+  }
+}

@@ -11,6 +11,7 @@ body {
     padding: 0;
     display: flex;
     flex-direction: column;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .page-content {
@@ -31,6 +32,7 @@ header > img {
     height: 100%;
     padding: 24px;
     box-sizing: border-box;
+    -moz-box-sizing: content-box
 }
 
 nav {
@@ -45,6 +47,100 @@ nav {
 main {
     background: #f7f7f7;
     flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.room-header {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+}
+
+.room-header > h1 {
+    font-weight: 400;
+    color: #444;
+    margin: 18px 40px;
+}
+
+.room-header .room-status {
+    position: absolute;
+    top: calc(50% - 10px);
+    height: 30px;
+    right: 60px;
+}
+
+.messages-container {
+    flex: 1;
+    overflow: auto;
+}
+
+form {
+    background: white;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 7px 0 grey;
+    max-height: 300px;
+    min-height: 80px;
+    display: flex;
+    flex-direction: row;
+}
+
+form > textarea {
+    font-size: 18px;
+    font-weight: 400;
+    font-family: 'Open Sans', sans-serif;
+    color: #666;
+    margin: 12px 24px;
+    overflow: auto;
+    display: block;
+    resize: none;
+    border: 0;
+    padding: 0;
+    flex: 1;
+    box-sizing: border-box;
+    -moz-box-sizing: content-box;
+    height: auto;
+    opacity: 0.3;
+    outline: none;
+}
+
+form > textarea:focus {
+    opacity: 1;
+}
+
+form > button {
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+    border: 0;
+    background: transparent;
+    padding: 0;
+    -webkit-transition: opacity 200ms;
+    transition: opacity 200ms;
+    margin: 30px 60px 30px 20px;
+}
+
+form > button:hover {
+    opacity: 0.8;
+}
+
+form > button > img {
+    width: 60px;
+    height: 60px;
+}
+
+.room-header .room-status > img {
+    height: 24px;
+    margin-left: 8px;
+    margin-top: 2px;
+}
+
+.room-header .room-status > span {
+    vertical-align: top;
+    line-height: 30px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #666;
 }
 
 .message {

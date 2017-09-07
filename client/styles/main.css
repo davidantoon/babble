@@ -42,6 +42,7 @@ nav {
     width: 25%;
     -webkit-transition: width 300ms; /* Safari */
     transition: width 300ms;
+    z-index: 2;
 }
 
 main {
@@ -55,6 +56,8 @@ main {
     overflow: hidden;
     width: 100%;
     position: relative;
+    box-shadow: 0px 7px 7px 0px rgb(247, 248, 247);
+    z-index: 1;
 }
 
 .room-header > h1 {
@@ -65,14 +68,28 @@ main {
 
 .room-header .room-status {
     position: absolute;
-    top: calc(50% - 10px);
+    top: calc(50% - 24px);
     height: 30px;
     right: 60px;
+    width: 100px;
 }
 
-.messages-container {
-    flex: 1;
-    overflow: auto;
+.room-header .room-status dt {
+    float: left;
+    width: 50px;
+    overflow: hidden;
+    clear: left;
+    text-align: right;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.room-header .room-status span {
+    font-size: 17px;
+    vertical-align: top;
+    color: #666;
+    font-weight: 700;
+    margin-right: 5px;
 }
 
 form {
@@ -118,6 +135,7 @@ form > button {
     -webkit-transition: opacity 200ms;
     transition: opacity 200ms;
     margin: 30px 60px 30px 20px;
+    cursor: pointer;
 }
 
 form > button:hover {
@@ -143,29 +161,106 @@ form > button > img {
     color: #666;
 }
 
+.messages-container {
+    flex: 1;
+    overflow: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.messages-container ol {
+    list-style-type: none;
+}
+
 .message {
     display: flex;
     flex-direction: row;
+    margin-top: 12px;
+    outline: none;
+    margin-right: 40px;
 }
 
 .message > img {
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
     vertical-align: top;
-    border: 1px solid gray;
+    border: 1px solid #ccc;
 }
 
 .message .content {
     background: #fff;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
-    border-radius: 4px;
-    border: 1px solid #f1f1f1;
+    border-radius: 12px;
+    border: 2px solid #e8e8e8;
     max-width: 600px;
     flex-shrink: 1;
+    padding: 6px 10px;
+    margin-left: 10px;
+    outline: none;
+}
+
+.message .content:hover, .message .content:focus {
+    background-color: #f1f1f1;
+}
+
+.message .top-layout {
+    position: relative;
+    overflow: hidden;
+}
+
+.message .top-layout .delete-button {
+    position: absolute;
+    padding: 0;
+    font-size: 18px;
+    font-family: unset, sans-serif;
+    font-weight: 800;
+    margin: 0;
+    border: 0;
+    line-height: 22px;
+    background: transparent;
+    color: #444;
+    overflow: hidden;
+    right: 0;
+    top: 0;
+    width: 22px;
+    height: 22px;
+    outline: none;
+    display: none;
+    cursor: pointer;
+}
+
+.message .top-layout .delete-button:hover {
+    color: #000;
+}
+
+.message .content:hover .delete-button, .message .content:focus .delete-button {
+    display: block;
+}
+
+.message .content cite {
+    font-weight: 700;
+    font-size: 16px;
+    font-style: normal;
+}
+
+.message .content time {
+    font-size: 13px;
+    margin-left: 10px;
+    margin-right: 30px;
+    font-weight: 400;
+    color: gray;
+    vertical-align: bottom;
+}
+
+.message .content .text {
+    margin-top: 3px;
+    color: gray;
 }
 
 @media (max-width: 638px) {
@@ -183,6 +278,26 @@ form > button > img {
     nav {
         width: 0;
         min-width: 0;
+    }
+
+    .room-header .room-status {
+        right: 24px;
+        width: 100px;
+    }
+
+    form {
+        min-height: 104px;
+    }
+
+    form > button {
+        width: 50px;
+        height: 50px;
+        margin: 27px 20px 27px 20px;
+    }
+
+    form > button img {
+        width: 50px;
+        height: 50px;
     }
 }
 

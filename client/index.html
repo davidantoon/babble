@@ -21,16 +21,109 @@
         <div class="room-header">
             <h1>Vegans</h1>
             <div class="room-status">
-                <img src="images/message_icon.png" width="24" height="24" alt="Messages Count"/>
-                <span id="messagesCount">0</span>
-                <img src="images/user_icon.png" width="24" height="24" alt="Users Count"/>
-                <span id="usersCount">0</span>
+                <dl>
+                    <dt>
+                        <img src="images/message_icon.png" width="24" height="24" alt="Messages Count"/>
+                        <span id="messagesCount">0</span>
+                    </dt>
+                    <dd>
+                        <img src="images/user_icon.png" width="24" height="24" alt="Users Count"/>
+                        <span id="usersCount">0</span>
+                    </dd>
+                </dl>
             </div>
         </div>
-        <div class="messages-container"></div>
+        <div class="messages-container">
+            <ol>
+                <li class="message">
+                    <img src="images/message_icon.png" width="40" height="40"/>
+                    <div class="content" tabindex="8">
+                        <div class="top-layout">
+                            <cite>David Antoon</cite>
+                            <time>10:11</time>
+                            <button class="delete-button" aria-label="Delete Message" tabindex="-1">x</button>
+                        </div>
+                        <div class="text"> jdksaf kjdsa fkjsad fkjasdf
+                            asdf jksadf kjsad fkjsad fkj asdkjf sadf
+                            sadf jksdf k
+                        </div>
+                    </div>
+                </li>
+                <li class="message">
+                    <img src="images/message_icon.png" width="40" height="40"/>
+                    <div class="content" tabindex="7">
+                        <div class="top-layout">
+                            <cite>David Antoon</cite>
+                            <time>10:11</time>
+                            <button class="delete-button" aria-label="Delete Message" tabindex="-1">x</button>
+                        </div>
+                        <div class="text"> jdksaf kjdsa fkjsad fkjasdf
+                            asdf jksadf kjsad fkjsad fkj asdkjf sadf
+                            sadf jksdf k
+                        </div>
+                    </div>
+                </li>
+                <li class="message">
+                    <img src="images/message_icon.png" width="40" height="40"/>
+                    <div class="content" tabindex="6">
+                        <div class="top-layout">
+                            <cite>David Antoon</cite>
+                            <time>10:11</time>
+                            <button class="delete-button" aria-label="Delete Message" tabindex="-1">x</button>
+                        </div>
+                        <div class="text"> jdksaf kjdsa fkjsad fkjasdf
+                            asdf jksadf kjsad fkjsad fkj asdkjf sadf
+                            sadf jksdf k
+                        </div>
+                    </div>
+                </li>
+                <li class="message">
+                    <img src="images/message_icon.png" width="40" height="40"/>
+                    <div class="content" tabindex="5">
+                        <div class="top-layout">
+                            <cite>David Antoon</cite>
+                            <time>10:11</time>
+                            <button class="delete-button" aria-label="Delete Message" tabindex="-1">x</button>
+                        </div>
+                        <div class="text"> jdksaf kjdsa fkjsad fkjasdf
+                            asdf jksadf kjsad fkjsad fkj asdkjf sadf
+                            sadf jksdf k
+                        </div>
+                    </div>
+                </li>
+                <li class="message">
+                    <img src="images/message_icon.png" width="40" height="40"/>
+                    <div class="content" tabindex="4">
+                        <div class="top-layout">
+                            <cite>David Antoon</cite>
+                            <time>10:11</time>
+                            <button class="delete-button" aria-label="Delete Message" tabindex="-1">x</button>
+                        </div>
+                        <div class="text"> jdksaf kjdsa fkjsad fkjasdf
+                            asdf jksadf kjsad fkjsad fkj asdkjf sadf
+                            sadf jksdf k
+                        </div>
+                    </div>
+                </li>
+                <li class="message">
+                    <img src="images/message_icon.png" width="40" height="40"/>
+                    <div class="content" tabindex="3">
+                        <div class="top-layout">
+                            <cite>David Antoon</cite>
+                            <time>10:11</time>
+                            <button class="delete-button" aria-label="Delete Message" tabindex="-1">x</button>
+                        </div>
+                        <div class="text">
+                            david
+                        </div>
+                    </div>
+                </li>
+            </ol>
+        </div>
         <form>
-            <textarea id="sendMessageText" rows="1" title="New message" placeholder="Enter you message..."></textarea>
-            <button aria-label="Send" type="submit">
+            <textarea id="sendMessageText" rows="1" tabindex="20" title="New message"
+                      placeholder="Enter you message..."></textarea>
+            <button aria-label="Send" type="submit" tabindex="21">
                 <img src="images/send_button.png" alt="" width="60" height="60"/>
             </button>
         </form>

@@ -200,7 +200,7 @@ Babble.deleteMessage = function (id, callback) {
 };
 Babble.getStats = function (callback) {
     console.log("getStats()");
-    
+
 };
 
 

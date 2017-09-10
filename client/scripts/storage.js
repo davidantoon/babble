@@ -68,4 +68,5 @@ Babble.storage = new function () {
         }
         return null;
     };
+
 }();

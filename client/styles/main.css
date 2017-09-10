@@ -19,6 +19,7 @@ body {
     flex-direction: row;
     flex: 1;
     width: 100%;
+    position: relative;
 }
 
 header {
@@ -26,6 +27,7 @@ header {
     height: 128px;
     -webkit-transition: height 300ms; /* Safari */
     transition: height 300ms;
+    position: relative;
 }
 
 header > img {
@@ -33,6 +35,23 @@ header > img {
     padding: 24px;
     box-sizing: border-box;
     -moz-box-sizing: content-box
+}
+
+header .right-button {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    background: transparent;
+    color: white;
+    border: 0;
+    border-radius: 2px;
+    padding: 5px 12px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+header .right-button:hover, header .right-button:focus {
+    opacity: .7;
 }
 
 nav {
@@ -56,7 +75,7 @@ main {
     overflow: hidden;
     width: 100%;
     position: relative;
-    box-shadow: 0px 7px 7px 0px rgb(247, 248, 247);
+    box-shadow: 0 7px 7px 0 rgb(247, 248, 247);
     z-index: 1;
 }
 
@@ -92,7 +111,7 @@ main {
     margin-right: 5px;
 }
 
-form {
+main > form {
     background: white;
     border-top: 1px solid rgba(0, 0, 0, 0.2);
     box-shadow: 0 2px 7px 0 grey;
@@ -102,7 +121,7 @@ form {
     flex-direction: row;
 }
 
-form > textarea {
+main > form > textarea {
     font-size: 18px;
     font-weight: 400;
     font-family: 'Open Sans', sans-serif;
@@ -121,11 +140,11 @@ form > textarea {
     outline: none;
 }
 
-form > textarea:focus {
+main > form > textarea:focus {
     opacity: 1;
 }
 
-form > button {
+main > form > button {
     width: 60px;
     height: 60px;
     overflow: hidden;
@@ -138,11 +157,11 @@ form > button {
     cursor: pointer;
 }
 
-form > button:hover {
+main > form > button:hover {
     opacity: 0.8;
 }
 
-form > button > img {
+main > form > button > img {
     width: 60px;
     height: 60px;
 }
@@ -261,6 +280,97 @@ form > button > img {
 .message .content .text {
     margin-top: 3px;
     color: gray;
+    font-family: 'Open Sans', sans-serif;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.dialog-container {
+    position: absolute;
+    left: 0;
+    z-index: 10000;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .4);
+    display: none;
+}
+
+.dialog-container .dialog-content {
+    background: #f7f7f7;
+    border-radius: 4px;
+    width: 500px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    margin: auto;
+    height: 280px;
+    box-shadow: 0 0 5px 1px grey;
+    border: 1px solid rgba(0, 0, 0, .2);
+    padding: 10px 40px;
+}
+
+.dialog-container .dialog-content h1 {
+    font-weight: 400;
+    color: #444;
+    margin-bottom: 30px;
+}
+
+.dialog-container .dialog-input-row {
+    margin-bottom: 10px;
+}
+
+.dialog-container .dialog-input-row input {
+    border-radius: 10px;
+    height: 28px;
+    border: 1px solid #ccc;
+    width: 350px;
+    margin-left: 16px;
+    outline: none;
+    padding: 0 10px;
+    box-sizing: border-box;
+    font-size: 14px;
+    color: gray;
+}
+
+.dialog-container .dialog-input-row input:focus {
+    border: 1px solid #61d290;
+}
+
+.dialog-container .dialog-input-row label {
+    font-size: 17px;
+    width: 110px;
+    display: inline-block;
+    margin-left: 14px;
+}
+
+.dialog-container .dialog-buttons {
+    text-align: right;
+    margin-top: 40px;
+    margin-right: 8px;
+}
+
+.dialog-container .dialog-buttons button {
+    height: 40px;
+    padding: 0 16px;
+    border-radius: 2px;
+    border: 0;
+    font-size: 14px;
+    color: black;
+    background: #ccc;
+    cursor: pointer;
+    outline: none;
+}
+
+.dialog-container .dialog-buttons button:hover, .dialog-container .dialog-buttons button:focus {
+    opacity: .7;
+}
+
+.dialog-container .dialog-buttons button.positive {
+    background: #61d290;
+    color: white;
 }
 
 @media (max-width: 638px) {
@@ -307,4 +417,3 @@ form > button > img {
         height: 60px;
     }
 }
-

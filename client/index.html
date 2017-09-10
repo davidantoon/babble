@@ -14,6 +14,8 @@
 
 <header>
     <img alt="Vegans - Babble" src="images/logo.png"/>
+    <button class="right-button" id="logoutButton" aria-label="Logout" tabindex="0"><span id="loggedInLabel"></span>Logout
+    </button>
 </header>
 <div class="page-content">
     <nav></nav>
@@ -34,107 +36,50 @@
             </div>
         </div>
         <div class="messages-container">
-            <ol>
-                <li class="message">
-                    <img src="images/message_icon.png" width="40" height="40"/>
-                    <div class="content" tabindex="8">
-                        <div class="top-layout">
-                            <cite>David Antoon</cite>
-                            <time>10:11</time>
-                            <button class="delete-button" aria-label="Delete Message" tabindex="-1">x</button>
-                        </div>
-                        <div class="text"> jdksaf kjdsa fkjsad fkjasdf
-                            asdf jksadf kjsad fkjsad fkj asdkjf sadf
-                            sadf jksdf k
-                        </div>
-                    </div>
-                </li>
-                <li class="message">
-                    <img src="images/message_icon.png" width="40" height="40"/>
-                    <div class="content" tabindex="7">
-                        <div class="top-layout">
-                            <cite>David Antoon</cite>
-                            <time>10:11</time>
-                            <button class="delete-button" aria-label="Delete Message" tabindex="-1">x</button>
-                        </div>
-                        <div class="text"> jdksaf kjdsa fkjsad fkjasdf
-                            asdf jksadf kjsad fkjsad fkj asdkjf sadf
-                            sadf jksdf k
-                        </div>
-                    </div>
-                </li>
-                <li class="message">
-                    <img src="images/message_icon.png" width="40" height="40"/>
-                    <div class="content" tabindex="6">
-                        <div class="top-layout">
-                            <cite>David Antoon</cite>
-                            <time>10:11</time>
-                            <button class="delete-button" aria-label="Delete Message" tabindex="-1">x</button>
-                        </div>
-                        <div class="text"> jdksaf kjdsa fkjsad fkjasdf
-                            asdf jksadf kjsad fkjsad fkj asdkjf sadf
-                            sadf jksdf k
-                        </div>
-                    </div>
-                </li>
-                <li class="message">
-                    <img src="images/message_icon.png" width="40" height="40"/>
-                    <div class="content" tabindex="5">
-                        <div class="top-layout">
-                            <cite>David Antoon</cite>
-                            <time>10:11</time>
-                            <button class="delete-button" aria-label="Delete Message" tabindex="-1">x</button>
-                        </div>
-                        <div class="text"> jdksaf kjdsa fkjsad fkjasdf
-                            asdf jksadf kjsad fkjsad fkj asdkjf sadf
-                            sadf jksdf k
-                        </div>
-                    </div>
-                </li>
-                <li class="message">
-                    <img src="images/message_icon.png" width="40" height="40"/>
-                    <div class="content" tabindex="4">
-                        <div class="top-layout">
-                            <cite>David Antoon</cite>
-                            <time>10:11</time>
-                            <button class="delete-button" aria-label="Delete Message" tabindex="-1">x</button>
-                        </div>
-                        <div class="text"> jdksaf kjdsa fkjsad fkjasdf
-                            asdf jksadf kjsad fkjsad fkj asdkjf sadf
-                            sadf jksdf k
-                        </div>
-                    </div>
-                </li>
-                <li class="message">
-                    <img src="images/message_icon.png" width="40" height="40"/>
-                    <div class="content" tabindex="3">
-                        <div class="top-layout">
-                            <cite>David Antoon</cite>
-                            <time>10:11</time>
-                            <button class="delete-button" aria-label="Delete Message" tabindex="-1">x</button>
-                        </div>
-                        <div class="text">
-                            david
-                        </div>
-                    </div>
-                </li>
+            <ol id="messages">
+
             </ol>
         </div>
-        <form>
-            <textarea id="sendMessageText" rows="1" tabindex="20" title="New message"
-                      placeholder="Enter you message..."></textarea>
-            <button aria-label="Send" type="submit" tabindex="21">
+        <form id="sendMessageForm">
+            <textarea id="sendMessageText" rows="1" tabindex="1" title="New message"
+                      placeholder="Enter you message... (Shift + Enter for new line)"></textarea>
+            <button id="sendMessageButton" aria-label="Send" type="submit" tabindex="1">
                 <img src="images/send_button.png" alt="" width="60" height="60"/>
             </button>
         </form>
 
+        <div id="loginDialog" class="dialog-container">
+            <div class="dialog-content">
+                <h1>Who are you?</h1>
+                <form id="loginForm">
+                    <div class="dialog-input-row">
+                        <label for="fullName">Full Name:</label>
+                        <input id="fullName" name="fullName"/>
+                    </div>
+                    <div class="dialog-input-row">
+                        <label for="email">Email:</label>
+                        <input id="email" name="email"/>
+                    </div>
+                    <div class="dialog-buttons">
+                        <button tabindex="0" type="reset">Stay Anonymous</button>
+                        <button tabindex="0" class="positive" type="submit">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </main>
 </div>
 
-
+<script>
+    console.log("Start Chat App");
+    const Babble = {
+        messages: [],
+        users: [],
+    };
+</script>
 <script type="application/javascript" src="scripts/exceptions.js"></script>
 <script type="application/javascript" src="scripts/md5.js"></script>
-<script type="application/javascript" src="scripts/babble.js"></script>
+<script type="application/javascript" src="scripts/http.js"></script>
 <script type="application/javascript" src="scripts/storage.js"></script>
 <script type="application/javascript" src="scripts/utils.js"></script>
 <script type="application/javascript" src="scripts/message.js"></script>

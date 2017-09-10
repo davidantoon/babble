@@ -4,15 +4,8 @@ const Message = function (json) {
     this.email = json.email;
     this.message = json.message;
     this.timestamp = json.timestamp;
-    this.image = MD5(this.email);
-
-    this.delete = function (callback) {
-        Babble.deleteMessage(this.id, callback);
-    };
-
-    this.save = function (callback) {
-        Babble.postMessage(this.message, )
-    };
+    this.image = Utils.getGravatar(this.email);
+    this.deletedMessage = json.deletedMessage !== null && json.deletedMessage !== undefined;
 };
 
 Message.loadArray = function (array) {

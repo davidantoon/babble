@@ -38,8 +38,7 @@ Utils.scrollTo = function (element, to, duration) {
 
     let animateScroll = function () {
         currentTime += increment;
-        var val = Utils.easeInOutQuad(currentTime, start, change, duration);
-        console.log(val);
+        let val = Utils.easeInOutQuad(currentTime, start, change, duration);
         element.scrollTop = val;
         if (currentTime < duration) {
             setTimeout(animateScroll, increment);

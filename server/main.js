@@ -1,6 +1,8 @@
 const express = require('express');
-const utils = require('./utils');
 const bodyParser = require('body-parser');
+const utils = require('./utils');
+const messages = require('./messages-util');
+const onlineUtils = require('./online-utils');
 
 const frontEndServer = express();
 const backendServer = express();
@@ -11,9 +13,7 @@ backendServer.use(bodyParser.json());
 backendServer.use(bodyParser.urlencoded({extended: true}));
 
 let clients = [];
-let messages = [];
-let actions = [];
-
+let clientsState = [];
 
 frontEndServer.use(express.static('client'));
 frontEndServer.listen(8080, function () {
@@ -33,9 +33,10 @@ backendServer.all('*', function (req, res, next) {
 function pushToClients(msg) {
     while (clients.length > 0) {
         let client = clients.pop();
-        client.end(JSON.stringify({msg}));
+        client.end(JSON.stringify([msg]));
     }
 }
+
 
 backendServer.post('/messages', function (req, res) {
     console.log("add new message");
@@ -45,34 +46,56 @@ backendServer.post('/messages', function (req, res) {
         email: utils.checkString(req.body, res, "email"),
         message: utils.checkString(req.body, res, "message"),
         timestamp: utils.checkInt(req.body, res, "timestamp"),
-        id: messages.length
     };
-
-    messages.push(msg);
+    let id = messages.addMessage(msg);
     pushToClients(msg);
-    res.status(200).send(msg.id + "");
+    res.status(200).send(id + "");
 });
 
 backendServer.get('/messages', function (req, res) {
     let count = utils.checkInt(req.query, res, "counter");
 
     console.log("get messages counter = " + count);
-    if (messages.length > count) {
-        res.end(JSON.stringify(messages.slice(count)));
+
+    let newMessage = messages.getMessages(count);
+
+    if (newMessage.length > 0) {
+        res.end(JSON.stringify(newMessage));
     } else {
         clients.push(res);
     }
+    onlineUtils.pushToClients();
 });
 
+backendServer.get('/states', function (req, res) {
+    let id = utils.checkString(req.query, res, "id");
+
+    console.log("get states id = " + id);
+    let msgCount = messages.getVisibleMessagesCount();
+
+    if (msgCount + "_" + onlineUtils.clientsOnline.length !== id) {
+        res.end(JSON.stringify({users: onlineUtils.clientsOnline.length, messages: msgCount}));
+    } else {
+        onlineUtils.clientsState.push(res);
+    }
+});
+
+backendServer.get('/online', function (req, res) {
+
+    onlineUtils.addOnline(res);
+    req.on("close", function () {
+        onlineUtils.removeOnline(res);
+    })
+});
+
+
 backendServer.delete('/messages/:id', function (req, res) {
+    let id = utils.checkInt(req.params, res, "id");
 
     console.log("delete message id = " + id);
-
-    // if (messages.length > count) {
-    //     res.end(JSON.stringify(messages.slice(count)));
-    // } else {
-    //     clients.push(res);
-    // }
+    let deleteMsg = messages.deleteMessage(id);
+    pushToClients(deleteMsg);
+    res.status(200).send("true");
 });
 
 backendServer.listen(9000, function () {

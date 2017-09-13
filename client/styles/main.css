@@ -91,11 +91,13 @@ main {
     height: 30px;
     right: 60px;
     width: 100px;
+    min-width: 100px;
+    white-space: nowrap;
 }
 
 .room-header .room-status dt {
     float: left;
-    width: 50px;
+    min-width: 50px;
     overflow: hidden;
     clear: left;
     text-align: right;

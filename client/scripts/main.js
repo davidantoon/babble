@@ -3,6 +3,8 @@ Babble.run = function () {
     this.autoResizeTextArea();
     this.setListeners();
     this.polling();
+    this.pollingStates();
+    this.pollingOnline();
 
     this.setLoginDialogVisibility(!this.storage.isLoggedIn());
 
@@ -40,7 +42,7 @@ Babble.setListeners = function () {
 
     this.$loginForm.addEventListener("reset", function (e) {
         e.preventDefault();
-        Babble.register({name: this.$fullName.value, email: this.$email.value});
+        Babble.register({name: "Anonymous", email: "anonymous@anonymous.com"});
         this.setLoginDialogVisibility(false);
         this.$loggedInLabel.innerText = "Hey " + this.storage.getUserInfo().name + ", ";
     }.bind(this));
@@ -90,19 +92,39 @@ Babble.setLoginDialogVisibility = function (visible) {
 
 
 Babble.polling = function () {
-    Babble.getMessages(Babble.messages.length, function (data) {
-        Babble.pushNewMessagesToDOM(data);
+    Babble.getMessages(Babble.messages.length, function () {
         Babble.polling();
     });
 };
 
+Babble.pollingStates = function () {
+    console.log("pollingStates");
+    Babble.getStats(Babble.states.messages + "_" + Babble.states.users, function (data) {
+        this.$messagesCount.innerText = data.messages + "";
+        this.$usersCount.innerText = data.users + "";
+        this.states = data;
+        this.pollingStates();
+    }.bind(this));
+};
+
+Babble.pollingOnline = function () {
+    console.log("pollingStates");
+    Babble.getOnline(function () {
+        this.pollingOnline();
+    }.bind(this));
+};
+
 
 Babble.pushNewMessagesToDOM = function (msgs) {
+
     for (let i = 0; i < msgs.length; i++) {
         let msg = msgs[i];
 
         if (msg.deletedMessage) {
-            this.$messages.removeChild(document.querySelector(".message[message-id='" + msg.id + "']"));
+            let node = document.querySelector(".message[message-id='" + msg.id + "']");
+            if(node !== null) {
+                this.$messages.removeChild(node);
+            }
             continue;
         }
 
@@ -168,14 +190,17 @@ Babble.register = function (userInfo) {
 };
 Babble.getMessages = function (counter, callback) {
     console.log("getMessages(counter)", "counter = ", counter);
-    Babble.http.get("messages?counter=" + encodeURI(counter), "").then(function (data, error) {
+    Babble.http.get("messages?counter=" + encodeURI(counter), "").then(function (data) {
+        let error = data[1];
+        data = data[0];
         if (error !== null && error !== undefined) {
             alert("Failed to get messages");
             return;
         }
         let newMessages = Message.loadArray(data);
         this.messages = this.messages.concat(newMessages);
-        callback(newMessages);
+        Babble.pushNewMessagesToDOM(newMessages);
+        callback();
     }.bind(this));
 
 };
@@ -186,7 +211,9 @@ Babble.postMessage = function (message, callback) {
     data["message"] = message;
     data["timestamp"] = new Date().getTime();
 
-    Babble.http.post("messages", data).then(function (data, error) {
+    Babble.http.post("messages", data).then(function (data) {
+        let error = data[1];
+        data = data[0];
         if (error !== null && error !== undefined) {
             alert("Failed to post message");
         }
@@ -196,11 +223,33 @@ Babble.postMessage = function (message, callback) {
 };
 Babble.deleteMessage = function (id, callback) {
     console.log("deleteMessage()", id);
-
+    Babble.http.delete("messages/" + id, function (data) {
+        console.log(data);
+    }.bind(this));
 };
-Babble.getStats = function (callback) {
+Babble.getStats = function (id, callback) {
     console.log("getStats()");
+    Babble.http.get("states?id=" + encodeURI(id), "").then(function (data) {
+        let error = data[1];
+        data = data[0];
+        if (error !== null && error !== undefined) {
+            alert("Failed to get states");
+            return;
+        }
+        callback(data);
+    }.bind(this));
+};
 
+Babble.getOnline = function (callback) {
+    console.log("getOnline()");
+    Babble.http.get("online", "").then(function (data) {
+        let error = data[1];
+        if (error !== null && error !== undefined) {
+            setTimeout(callback, 2000);
+            return;
+        }
+        callback();
+    }.bind(this));
 };
 
 

@@ -31,10 +31,10 @@ Babble.http = new function () {
                 } catch (e) {
                     res = res = e.target.responseText;
                 }
-                if (e.target.status !== 200) {
-                    resolve(null, res);
+                if (e.target.status !== 200 || (res.error !== null && res.error !== undefined)) {
+                    resolve([null, res]);
                 } else {
-                    resolve(res);
+                    resolve([res, null]);
                 }
             });
             xhr.send(options.data);

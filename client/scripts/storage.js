@@ -1,10 +1,25 @@
+window.Babble = window.Babble ? window.Babble : {messages: [], states: {messages: 0, users: 0}};
 Babble.storage = new function () {
 
     const TAG = "Storage";
     const STORAGE_KEY = "babble";
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+        currentMessage: "",
+        userInfo: {
+            name: "",
+            email: ""
+        }
+    }));
 
     this.logout = function () {
         localStorage.clear();
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({
+            currentMessage: "",
+            userInfo: {
+                name: "",
+                email: ""
+            }
+        }));
     };
 
     this.isLoggedIn = function () {
@@ -22,7 +37,7 @@ Babble.storage = new function () {
             throw new NotLoggedIn();
         }
         try {
-            JSON.parse(babbleData)
+            JSON.parse(babbleData);
         } catch (e) {
             console.log(TAG, "invalid babble data", e);
             this.logout();
@@ -46,7 +61,13 @@ Babble.storage = new function () {
             let babbleData = JSON.parse(localStorage.getItem(STORAGE_KEY));
             return babbleData.userInfo;
         }
-        return null;
+        return {
+            currentMessage: "",
+            userInfo: {
+                name: "",
+                email: ""
+            }
+        };
     };
 
     this.setCurrentMessage = function (message) {

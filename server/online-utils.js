@@ -10,7 +10,7 @@ module.exports = {
     pushToClients() {
         while (this.clientsState.length > 0) {
             let client = this.clientsState.pop();
-            client.end(JSON.stringify({users: this.clientsOnline.length, messages: messages.getCount()}));
+            client.end(JSON.stringify({messages: messages.getCount(), users: this.clientsOnline.length}));
         }
     },
 

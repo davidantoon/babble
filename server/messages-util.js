@@ -19,22 +19,20 @@ module.exports = {
 
 
     deleteMessage(id) {
-        let deleteMsg = JSON.parse(JSON.stringify(this.messages[id]));
+        let index = 0;
+        for(let i=0; i<this.messages.length; i++){
+            if(this.messages[i].id === id){
+                index = i;
+                break;
+            }
+        }
+        let deleteMsg = JSON.parse(JSON.stringify(this.messages[index]));
         deleteMsg.deletedMessage = true;
-        this.messages.push(deleteMsg);
+        this.messages = this.messages.slice(0, index).concat(this.messages.slice(index + 1));
         return deleteMsg;
     },
-
 
     getCount() {
         return this.messages.length;
     },
-
-    getVisibleMessagesCount() {
-        let msgCount = 0;
-        this.messages.forEach((msg) => {
-            msgCount += msg.deletedMessage ? -1 : 1
-        });
-        return msgCount > 0 ? msgCount : 0;
-    }
 };

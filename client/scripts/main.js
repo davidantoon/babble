@@ -1,3 +1,4 @@
+window.Babble = window.Babble ? window.Babble : {messages: [], states: {messages:0, users:0}};
 Babble.run = function () {
     this.setupElements();
     this.autoResizeTextArea();
@@ -74,10 +75,15 @@ Babble.setListeners = function () {
         if (this.$sendMessageText.value.trim().length === 0) {
             return;
         }
-        let message = this.$sendMessageText.value;
+
+        let message = Babble.storage.getUserInfo();
+        data["message"] = message;
+        data["timestamp"] = new Date().getTime();
+
         this.$sendMessageText.isDisabled = true;
         this.$sendMessageText.value = "";
         this.$sendMessageText.style.cssText = 'height:80px';
+
         this.postMessage(message, function () {
             this.$sendMessageText.isDisabled = false;
         }.bind(this))
@@ -92,7 +98,8 @@ Babble.setLoginDialogVisibility = function (visible) {
 
 
 Babble.polling = function () {
-    Babble.getMessages(Babble.messages.length, function () {
+    Babble.getMessages(Babble.messages.length, function (newMessages) {
+        Babble.pushNewMessagesToDOM(newMessages);
         Babble.polling();
     });
 };
@@ -198,27 +205,32 @@ Babble.getMessages = function (counter, callback) {
             return;
         }
         let newMessages = Message.loadArray(data);
-        this.messages = this.messages.concat(newMessages);
-        Babble.pushNewMessagesToDOM(newMessages);
-        callback();
+
+        for(let i=0; i< newMessages.length; i++){
+            if(newMessages[i].deletedMessage){
+                this.messages = this.messages.slice(0, newMessages[i].id).concat(this.messages.slice(newMessages[i].id));
+            }else {
+                this.messages.push(newMessages[i]);
+            }
+        }
+        callback(newMessages);
     }.bind(this));
 
 };
 Babble.postMessage = function (message, callback) {
     console.log("postMessage(message, callback)", "message = ", message);
-    let userInfo = Babble.storage.getUserInfo();
-    let data = Babble.storage.getUserInfo();
-    data["message"] = message;
-    data["timestamp"] = new Date().getTime();
 
-    Babble.http.post("messages", data).then(function (data) {
+    Babble.http.post("messages", message).then(function (data) {
         let error = data[1];
         data = data[0];
         if (error !== null && error !== undefined) {
             alert("Failed to post message");
         }
-        Utils.scrollTo(this.$messages.parentElement, this.$messages.parentElement.scrollHeight, 300);
-        callback();
+        if(this.$messages !== undefined) {
+            Utils.scrollTo(this.$messages.parentElement, this.$messages.parentElement.scrollHeight, 300);
+        }
+        debugger;
+        callback(data);
     }.bind(this));
 };
 Babble.deleteMessage = function (id, callback) {
@@ -276,5 +288,3 @@ Babble.autoResizeTextArea = function () {
         }, 0);
     }
 };
-
-Babble.run();

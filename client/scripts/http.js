@@ -1,3 +1,4 @@
+window.Babble = window.Babble ? window.Babble : {messages: [], states: {messages:0, users:0}};
 Babble.http = new function () {
 
     const TAG = "Http";

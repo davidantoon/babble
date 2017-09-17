@@ -59,10 +59,10 @@ module.exports = {
         }
         onlineUtils.pushToClients();
     },
-    getStates(req, res) {
-        let id = utils.checkString(req.query, res, "id");
+    getStats(req, res) {
+        let id = req.query["counter"];
 
-        console.log("get states id = " + id);
+        console.log("get stats id = " + id);
         let msgCount = messages.getCount();
 
         if (msgCount + "_" + onlineUtils.clientsOnline.length !== id) {
@@ -95,7 +95,7 @@ module.exports = {
 
         this.addAPI("post", "/messages", this.addNewMessages.bind(this));
         this.addAPI("get", "/messages", this.getMessages.bind(this));
-        this.addAPI("get", "/states", this.getStates.bind(this));
+        this.addAPI("get", "/stats", this.getStats.bind(this));
         this.addAPI("get", "/online", this.getOnline.bind(this));
         this.addAPI("delete", "/messages/:id", this.deleteMessage.bind(this));
 

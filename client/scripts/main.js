@@ -77,8 +77,10 @@ Babble.setListeners = function () {
         }
 
         let message = Babble.storage.getUserInfo();
-        data["message"] = message;
-        data["timestamp"] = new Date().getTime();
+        message["message"] = this.$sendMessageText.value;
+        message["timestamp"] = new Date().getTime();
+
+        console.log(message);
 
         this.$sendMessageText.isDisabled = true;
         this.$sendMessageText.value = "";
@@ -86,6 +88,7 @@ Babble.setListeners = function () {
 
         this.postMessage(message, function () {
             this.$sendMessageText.isDisabled = false;
+            Utils.scrollTo(this.$messages.parentElement, this.$messages.parentElement.scrollHeight, 300);
         }.bind(this))
 
     }.bind(this));
@@ -106,7 +109,7 @@ Babble.polling = function () {
 
 Babble.pollingStates = function () {
     console.log("pollingStates");
-    Babble.getStats(Babble.states.messages + "_" + Babble.states.users, function (data) {
+    Babble.getStats(function (data) {
         this.$messagesCount.innerText = data.messages + "";
         this.$usersCount.innerText = data.users + "";
         this.states = data;
@@ -226,10 +229,6 @@ Babble.postMessage = function (message, callback) {
         if (error !== null && error !== undefined) {
             alert("Failed to post message");
         }
-        if(this.$messages !== undefined) {
-            Utils.scrollTo(this.$messages.parentElement, this.$messages.parentElement.scrollHeight, 300);
-        }
-        debugger;
         callback(data);
     }.bind(this));
 };
@@ -239,9 +238,10 @@ Babble.deleteMessage = function (id, callback) {
         console.log(data);
     }.bind(this));
 };
-Babble.getStats = function (id, callback) {
+Babble.getStats = function (callback) {
     console.log("getStats()");
-    Babble.http.get("states?id=" + encodeURI(id), "").then(function (data) {
+    let counter = Babble.states.messages + "_" + Babble.states.users;
+    Babble.http.get("stats?counter=" + encodeURI(counter), "").then(function (data) {
         let error = data[1];
         data = data[0];
         if (error !== null && error !== undefined) {

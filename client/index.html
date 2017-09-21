@@ -54,15 +54,15 @@
                 <form id="loginForm">
                     <div class="dialog-input-row">
                         <label for="fullName">Full Name:</label>
-                        <input id="fullName" name="fullName"/>
+                        <input tabindex="1" id="fullName" name="fullName"/>
                     </div>
                     <div class="dialog-input-row">
                         <label for="email">Email:</label>
-                        <input id="email" name="email"/>
+                        <input tabindex="2" id="email" name="email"/>
                     </div>
                     <div class="dialog-buttons">
-                        <button tabindex="0" type="reset">Stay Anonymous</button>
-                        <button tabindex="0" class="positive" type="submit">Save</button>
+                        <button tabindex="4" type="reset">Stay Anonymous</button>
+                        <button tabindex="3" class="positive" type="submit">Save</button>
                     </div>
                 </form>
             </div>
@@ -70,15 +70,9 @@
     </main>
 </div>
 
-<script type="application/javascript" src="scripts/exceptions.js"></script>
-<script type="application/javascript" src="scripts/md5.js"></script>
-<script type="application/javascript" src="scripts/http.js"></script>
-<script type="application/javascript" src="scripts/storage.js"></script>
-<script type="application/javascript" src="scripts/utils.js"></script>
-<script type="application/javascript" src="scripts/message.js"></script>
 <script type="application/javascript" src="scripts/main.js"></script>
 <script type="text/javascript">
-    Babble.run();
+    Babble.start();
 </script>
 </body>
 </html>

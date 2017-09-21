@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const utils = require('./utils');
 const messages = require('./messages-util');
 const onlineUtils = require('./online-utils');
+const md5 = require('./md5');
 
 module.exports = {
 
@@ -40,6 +41,7 @@ module.exports = {
             email: utils.checkString(req.body, res, "email"),
             message: utils.checkString(req.body, res, "message"),
             timestamp: utils.checkInt(req.body, res, "timestamp"),
+            image: "https://www.gravatar.com/avatar/" + md5.MD5(utils.checkString(req.body, res, "email").trim().toLowerCase()) + "?s=60&d=identicon",
         };
         let id = messages.addMessage(msg);
         this.pushToClients(msg);
@@ -60,16 +62,7 @@ module.exports = {
         onlineUtils.pushToClients();
     },
     getStats(req, res) {
-        let id = req.query["counter"];
-
-        console.log("get stats id = " + id);
-        let msgCount = messages.getCount();
-
-        if (msgCount + "_" + onlineUtils.clientsOnline.length !== id) {
-            res.end(JSON.stringify({messages: msgCount, users: onlineUtils.clientsOnline.length}));
-        } else {
-            onlineUtils.clientsState.push(res);
-        }
+        res.end(JSON.stringify({messages: messages.getCount(), users: onlineUtils.clientsOnline.length}));
     },
     getOnline(req, res) {
         onlineUtils.addOnline(res);

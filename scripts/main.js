@@ -278,6 +278,7 @@ window.Babble = new function () {
             let img = document.createElement("img");
             img.setAttribute("src", msg.image);
             img.setAttribute("width", "40");
+            img.setAttribute("alt", msg.name + "'s picture");
             img.setAttribute("height", "40");
 
             let name = document.createElement("cite");
@@ -295,11 +296,12 @@ window.Babble = new function () {
             deleteButton.innerHTML = "x";
 
             deleteButton.addEventListener('click', function (e) {
-                this.deleteMessage(msg.id, function () {
-                    this.parentElement.parentElement.parentElement.parentElement
-                        .removeChild(this.parentElement.parentElement.parentElement);
+                Babble.deleteMessage(msg.id, function () {
+                    let elem = this;
+                    elem.parentElement.parentElement.parentElement.parentElement
+                        .removeChild(elem.parentElement.parentElement.parentElement);
                 }.bind(this));
-            }.bind(this), false);
+            }, false);
 
             let topLayout = document.createElement("div");
             topLayout.setAttribute("class", "top-layout");
@@ -314,7 +316,7 @@ window.Babble = new function () {
 
             let messageContent = document.createElement("div");
             messageContent.setAttribute("class", "content");
-            messageContent.setAttribute("tabindex", "1");
+            messageContent.setAttribute("tabindex", "0");
 
             messageContent.appendChild(topLayout);
             messageContent.appendChild(messageText);

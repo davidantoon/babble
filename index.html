@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -14,7 +14,7 @@
 
 <header>
     <img alt="Vegans - Babble" src="images/logo.png"/>
-    <button class="right-button" id="logoutButton" aria-label="Logout" tabindex="0"><span id="loggedInLabel"></span>Logout
+    <button class="right-button" id="logoutButton" aria-label="Logout"><span id="loggedInLabel"></span>Logout
     </button>
 </header>
 <div class="page-content">
@@ -41,9 +41,9 @@
             </ol>
         </div>
         <form id="sendMessageForm">
-            <textarea id="sendMessageText" rows="1" tabindex="1" title="New message"
+            <textarea id="sendMessageText" rows="1" title="New message" aria-label="message"
                       placeholder="Enter you message... (Shift + Enter for new line)"></textarea>
-            <button id="sendMessageButton" aria-label="Send" type="submit" tabindex="1">
+            <button id="sendMessageButton" aria-label="Send" type="submit">
                 <img src="images/send_button.png" alt="" width="60" height="60"/>
             </button>
         </form>
@@ -54,15 +54,15 @@
                 <form id="loginForm">
                     <div class="dialog-input-row">
                         <label for="fullName">Full Name:</label>
-                        <input tabindex="1" id="fullName" name="fullName"/>
+                        <input id="fullName" name="fullName"/>
                     </div>
                     <div class="dialog-input-row">
                         <label for="email">Email:</label>
-                        <input tabindex="2" id="email" name="email"/>
+                        <input id="email" name="email"/>
                     </div>
                     <div class="dialog-buttons">
-                        <button tabindex="4" type="reset">Stay Anonymous</button>
-                        <button tabindex="3" class="positive" type="submit">Save</button>
+                        <button type="reset">Stay Anonymous</button>
+                        <button class="positive" type="submit">Save</button>
                     </div>
                 </form>
             </div>

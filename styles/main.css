@@ -1,0 +1,421 @@
+
+[hidden] {
+    display: none;
+}
+
+body {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.page-content {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    width: 100%;
+    position: relative;
+}
+
+header {
+    background: #363745;
+    height: 128px;
+    -webkit-transition: height 300ms; /* Safari */
+    transition: height 300ms;
+    position: relative;
+}
+
+header > img {
+    height: 100%;
+    padding: 24px;
+    box-sizing: border-box;
+    -moz-box-sizing: content-box
+}
+
+header .right-button {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    background: transparent;
+    color: white;
+    border: 0;
+    border-radius: 2px;
+    padding: 5px 12px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+header .right-button:hover, header .right-button:focus {
+    opacity: .7;
+}
+
+nav {
+    background: #61d290;
+    max-width: 300px;
+    min-width: 200px;
+    width: 25%;
+    -webkit-transition: width 300ms; /* Safari */
+    transition: width 300ms;
+    z-index: 2;
+}
+
+main {
+    background: #f7f7f7;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.room-header {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+    box-shadow: 0 7px 7px 0 rgb(247, 248, 247);
+    z-index: 1;
+}
+
+.room-header > h1 {
+    font-weight: 400;
+    color: #444;
+    margin: 18px 40px;
+}
+
+.room-header .room-status {
+    position: absolute;
+    top: calc(50% - 24px);
+    height: 30px;
+    right: 60px;
+    width: 100px;
+    min-width: 100px;
+    white-space: nowrap;
+}
+
+.room-header .room-status dt {
+    float: left;
+    min-width: 50px;
+    overflow: hidden;
+    clear: left;
+    text-align: right;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.room-header .room-status span {
+    font-size: 17px;
+    vertical-align: top;
+    color: #666;
+    font-weight: 700;
+    margin-right: 5px;
+}
+
+main > form {
+    background: white;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 7px 0 grey;
+    max-height: 300px;
+    min-height: 80px;
+    display: flex;
+    flex-direction: row;
+}
+
+main > form > textarea {
+    font-size: 18px;
+    font-weight: 400;
+    font-family: 'Open Sans', sans-serif;
+    color: #666;
+    margin: 12px 24px;
+    overflow: auto;
+    display: block;
+    resize: none;
+    border: 0;
+    padding: 0;
+    flex: 1;
+    box-sizing: border-box;
+    -moz-box-sizing: content-box;
+    height: auto;
+    opacity: 0.3;
+    outline: none;
+}
+
+main > form > textarea:focus {
+    opacity: 1;
+}
+
+main > form > button {
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+    border: 0;
+    background: transparent;
+    padding: 0;
+    -webkit-transition: opacity 200ms;
+    transition: opacity 200ms;
+    margin: 30px 60px 30px 20px;
+    cursor: pointer;
+}
+
+main > form > button:hover {
+    opacity: 0.8;
+}
+
+main > form > button > img {
+    width: 60px;
+    height: 60px;
+}
+
+.room-header .room-status > img {
+    height: 24px;
+    margin-left: 8px;
+    margin-top: 2px;
+}
+
+.room-header .room-status > span {
+    vertical-align: top;
+    line-height: 30px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #666;
+}
+
+.messages-container {
+    flex: 1;
+    overflow: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.messages-container ol {
+    list-style-type: none;
+}
+
+.message {
+    display: flex;
+    flex-direction: row;
+    margin-top: 12px;
+    outline: none;
+    margin-right: 40px;
+}
+
+.message > img {
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    vertical-align: top;
+    border: 1px solid #ccc;
+}
+
+.message .content {
+    background: #fff;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 12px;
+    border: 2px solid #e8e8e8;
+    max-width: 600px;
+    flex-shrink: 1;
+    padding: 6px 10px;
+    margin-left: 10px;
+    outline: none;
+}
+
+.message .content:hover, .message .content:focus {
+    background-color: #f1f1f1;
+}
+
+.message .top-layout {
+    position: relative;
+    overflow: hidden;
+}
+
+.message .top-layout .delete-button {
+    position: absolute;
+    padding: 0;
+    font-size: 18px;
+    font-family: unset, sans-serif;
+    font-weight: 800;
+    margin: 0;
+    border: 0;
+    line-height: 22px;
+    background: transparent;
+    color: #444;
+    overflow: hidden;
+    right: 0;
+    top: 0;
+    width: 22px;
+    height: 22px;
+    outline: none;
+    display: none;
+    cursor: pointer;
+}
+
+.message .top-layout .delete-button:hover {
+    color: #000;
+}
+
+.message .content:hover .delete-button, .message .content:focus .delete-button {
+    display: block;
+}
+
+.message .content cite {
+    font-weight: 700;
+    font-size: 16px;
+    font-style: normal;
+}
+
+.message .content time {
+    font-size: 13px;
+    margin-left: 10px;
+    margin-right: 30px;
+    font-weight: 400;
+    color: gray;
+    vertical-align: bottom;
+}
+
+.message .content .text {
+    margin-top: 3px;
+    color: gray;
+    font-family: 'Open Sans', sans-serif;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.dialog-container {
+    position: absolute;
+    left: 0;
+    z-index: 10000;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .4);
+    display: none;
+}
+
+.dialog-container .dialog-content {
+    background: #f7f7f7;
+    border-radius: 4px;
+    width: 500px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    margin: auto;
+    height: 280px;
+    box-shadow: 0 0 5px 1px grey;
+    border: 1px solid rgba(0, 0, 0, .2);
+    padding: 10px 40px;
+}
+
+.dialog-container .dialog-content h1 {
+    font-weight: 400;
+    color: #444;
+    margin-bottom: 30px;
+}
+
+.dialog-container .dialog-input-row {
+    margin-bottom: 10px;
+}
+
+.dialog-container .dialog-input-row input {
+    border-radius: 10px;
+    height: 28px;
+    border: 1px solid #ccc;
+    width: 350px;
+    margin-left: 16px;
+    outline: none;
+    padding: 0 10px;
+    box-sizing: border-box;
+    font-size: 14px;
+    color: gray;
+}
+
+.dialog-container .dialog-input-row input:focus {
+    border: 1px solid #61d290;
+}
+
+.dialog-container .dialog-input-row label {
+    font-size: 17px;
+    width: 110px;
+    display: inline-block;
+    margin-left: 14px;
+}
+
+.dialog-container .dialog-buttons {
+    text-align: right;
+    margin-top: 40px;
+    margin-right: 8px;
+}
+
+.dialog-container .dialog-buttons button {
+    height: 40px;
+    padding: 0 16px;
+    border-radius: 2px;
+    border: 0;
+    font-size: 14px;
+    color: black;
+    background: #ccc;
+    cursor: pointer;
+    outline: none;
+}
+
+.dialog-container .dialog-buttons button:hover, .dialog-container .dialog-buttons button:focus {
+    opacity: .7;
+}
+
+.dialog-container .dialog-buttons button.positive {
+    background: #61d290;
+    color: white;
+}
+
+@media (max-width: 638px) {
+    /* Mobile 320-638 */
+    header {
+        height: 80px;
+        box-shadow: 0 -1px 5px 2px grey;
+        z-index: 1;
+    }
+
+    header > img {
+        padding: 12px;
+    }
+
+    nav {
+        width: 0;
+        min-width: 0;
+    }
+
+    .room-header .room-status {
+        right: 24px;
+        width: 100px;
+    }
+
+    form {
+        min-height: 104px;
+    }
+
+    form > button {
+        width: 50px;
+        height: 50px;
+        margin: 27px 20px 27px 20px;
+    }
+
+    form > button img {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+@media (max-width: 320px) {
+    /* Mobile 0-320 */
+    header {
+        height: 60px;
+    }
+}

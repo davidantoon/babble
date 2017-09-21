@@ -278,6 +278,7 @@ window.Babble = new function () {
             let img = document.createElement("img");
             img.setAttribute("src", msg.image);
             img.setAttribute("width", "40");
+            img.setAttribute("alt", msg.name + "'s picture");
             img.setAttribute("height", "40");
 
             let name = document.createElement("cite");
